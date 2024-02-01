@@ -4,9 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Utente utente1 = new Utente();
-            utente1.MenuIniziale();
 
+            Utente.MenuIniziale();
 
         }
     }

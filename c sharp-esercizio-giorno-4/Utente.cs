@@ -3,27 +3,28 @@ using System.Collections.Generic;
 
 namespace c_sharp_esercizio_giorno_4
 {
-    internal class Utente
+    internal static class Utente
     {
-        private string Nome { get; set; }
-        private string Password { get; set; }
-        private bool IsLoggedIN { get; set; }
-        private DateTime UltimoLogin { get; set; }
-        private List<DateTime> AllAccess { get; set; } = new List<DateTime>();
+
+        private static string Nome { get; set; }
+        private static string Password { get; set; }
+        private static bool IsLoggedIN { get; set; }
+        private static DateTime UltimoLogin { get; set; }
+        private static List<DateTime> AllAccess { get; set; } = new List<DateTime>();
 
 
-        public Utente()
+        static Utente()
         {
 
-            this.Nome = "";
-            this.Password = "";
-            this.IsLoggedIN = false;
+            Nome = "";
+            Password = "";
+            IsLoggedIN = false;
 
         }
 
+        //____________________________________________________________________________________________________________
 
-
-        public void MenuIniziale()
+        public static void MenuIniziale()
         {
 
             Console.WriteLine("\n");
@@ -33,7 +34,7 @@ namespace c_sharp_esercizio_giorno_4
             Console.WriteLine("2.: Logout");
             Console.WriteLine("3.: Verifica ora e data di login");
             Console.WriteLine("4.: Lista degli accessi");
-            Console.WriteLine("5.: Cambiopassword");
+            Console.WriteLine("5.: Cambio password");
             Console.WriteLine("6.: Esci");
             Console.WriteLine("========================================");
 
@@ -75,18 +76,22 @@ namespace c_sharp_esercizio_giorno_4
 
         }
 
-        public void Login()
+
+        //____________________________________________________________________________________________________________
+
+
+        public static void Login()
         {
-            if (this.IsLoggedIN == false)
+            if (IsLoggedIN == false)
             {
 
-                this.IsLoggedIN = true;
+                IsLoggedIN = true;
 
                 Console.WriteLine("inserisci un nome:");
                 string nome = Console.ReadLine();
-                this.Nome = nome;
+                Nome = nome;
 
-                Console.WriteLine($"il nome da te inserito è {this.Nome}, è corretto?  y/n");
+                Console.WriteLine($"il nome da te inserito è {Nome}, è corretto?  y/n");
                 string risposta = Console.ReadLine();
                 string passwordUtente;
 
@@ -109,13 +114,13 @@ namespace c_sharp_esercizio_giorno_4
                             }
                             else
                             {
-                                this.Password = passwordUtente;
+                                Password = passwordUtente;
                                 Console.WriteLine("password inserita con successo.");
                                 // per salvare ora e data dell ultimo login
-                                this.UltimoLogin = DateTime.Now;
+                                UltimoLogin = DateTime.Now;
 
                                 // pusho nella lista l'accesso appena fatto 
-                                this.AllAccess.Add(this.UltimoLogin);
+                                AllAccess.Add(UltimoLogin);
                                 MenuIniziale();
                             }
                         }
@@ -137,7 +142,7 @@ namespace c_sharp_esercizio_giorno_4
                     // reimposta nome e aggiungi password 
                     Console.WriteLine("reimposta Nome Utente.");
                     string nuovoNome = Console.ReadLine();
-                    this.Nome = nuovoNome;
+                    Nome = nuovoNome;
 
                     try
                     {
@@ -155,13 +160,13 @@ namespace c_sharp_esercizio_giorno_4
                             }
                             else
                             {
-                                this.Password = passwordUtente;
+                                Password = passwordUtente;
                                 Console.WriteLine("password inserita con successo.");
                                 // per salvare ora e data dell ultimo login
-                                this.UltimoLogin = DateTime.Now;
+                                UltimoLogin = DateTime.Now;
 
                                 // pusho nella lista l'accesso appena fatto 
-                                this.AllAccess.Add(this.UltimoLogin);
+                                AllAccess.Add(UltimoLogin);
                                 MenuIniziale();
                             }
                         }
@@ -181,7 +186,7 @@ namespace c_sharp_esercizio_giorno_4
                 else
                 {
                     Console.WriteLine("input non valido.");
-                    this.Nome = "";
+                    Nome = "";
                     IsLoggedIN = false;
                     MenuIniziale();
                 }
@@ -193,7 +198,9 @@ namespace c_sharp_esercizio_giorno_4
             }
         }
 
-        public void LogOut()
+        //____________________________________________________________________________________________________________
+
+        public static void LogOut()
         {
             if (IsLoggedIN == false)
             {
@@ -204,14 +211,16 @@ namespace c_sharp_esercizio_giorno_4
             {
                 IsLoggedIN = false;
                 Console.WriteLine("Hai effettuato il LogOut.");
-                this.Nome = "DEFAULT";
-                this.Password = "";
+                Nome = "DEFAULT";
+                Password = "";
                 MenuIniziale();
             }
 
         }
 
-        public void Cambiopassword()
+        //____________________________________________________________________________________________________________
+
+        public static void Cambiopassword()
         {
             if (IsLoggedIN == false)
             {
@@ -223,7 +232,7 @@ namespace c_sharp_esercizio_giorno_4
                 Console.WriteLine("inserisci Vecchia Password.");
                 string vecchiaPassword = Console.ReadLine();
 
-                if (this.Password == vecchiaPassword)
+                if (Password == vecchiaPassword)
                 {
                     // inserisci nuova password
                     string nuovaPassword;
@@ -240,7 +249,7 @@ namespace c_sharp_esercizio_giorno_4
                         }
                         else
                         {
-                            this.Password = nuovaPassword;
+                            Password = nuovaPassword;
                             Console.WriteLine("password cambiata con successo.");
                             MenuIniziale();
                         }
@@ -258,7 +267,9 @@ namespace c_sharp_esercizio_giorno_4
 
         }
 
-        public void VerificaDataOraLogin()
+        //____________________________________________________________________________________________________________
+
+        public static void VerificaDataOraLogin()
         {
             if (IsLoggedIN == false)
             {
@@ -271,9 +282,9 @@ namespace c_sharp_esercizio_giorno_4
                 Console.WriteLine("Controllo Password: inserisci Password.");
                 string checkPassword = Console.ReadLine();
 
-                if (checkPassword == this.Password)
+                if (checkPassword == Password)
                 {
-                    Console.WriteLine($"Ultimo accesso effettuato alle: {this.UltimoLogin}");
+                    Console.WriteLine($"Ultimo accesso effettuato alle: {UltimoLogin}");
                     MenuIniziale();
                 }
                 else
@@ -286,7 +297,9 @@ namespace c_sharp_esercizio_giorno_4
 
         }
 
-        public void ElencoAccessi()
+        //____________________________________________________________________________________________________________
+
+        public static void ElencoAccessi()
         {
             if (IsLoggedIN == false)
             {
@@ -298,7 +311,7 @@ namespace c_sharp_esercizio_giorno_4
                 Console.WriteLine("Controllo Password: inserisci Password.");
                 string checkPassword = Console.ReadLine();
 
-                if (checkPassword == this.Password)
+                if (checkPassword == Password)
                 {
                     // mostro contenuto di allAccess
                     for (int i = 0; i < AllAccess.Count; i++)
@@ -317,13 +330,16 @@ namespace c_sharp_esercizio_giorno_4
             }
         }
 
-        public void Exit()
+        //____________________________________________________________________________________________________________
+
+        public static void Exit()
         {
             Console.WriteLine("Arrivederci!");
-            this.IsLoggedIN = false;
+            IsLoggedIN = false;
 
         }
 
+        //____________________________________________________________________________________________________________
     }
 
 
